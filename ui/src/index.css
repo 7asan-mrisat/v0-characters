@@ -1,0 +1,25 @@
+/* Smooth card "Play" animation */
+.card-playing {
+  transform: translateY(-6px) scale(1.01);
+  transition: transform 180ms ease-out, opacity 180ms ease-out;
+}
+
+/* Button sweep highlight */
+.sweep::before {
+  content: "";
+  position: absolute;
+  left: -40%;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-18deg);
+  filter: blur(2px);
+  animation: sweep-move 260ms ease-out forwards;
+}
+@keyframes sweep-move {
+  from { transform: translateX(0) skewX(-18deg); }
+  to   { transform: translateX(280%) skewX(-18deg); }
+}
+/* hide native cursor while our custom one is mounted */
+.v0-cursor-hide, .v0-cursor-hide * { cursor: none !important; }

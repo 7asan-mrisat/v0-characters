@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Enhanced gaming color palette with dark orange accent theme */
+    --background: 220 13% 9%;
+    --foreground: 220 9% 95%;
+    --card: 220 13% 11%;
+    --card-foreground: 220 9% 95%;
+    --popover: 220 13% 9%;
+    --popover-foreground: 220 9% 95%;
+    --primary: 24 100% 50%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 13% 15%;
+    --secondary-foreground: 220 9% 95%;
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 63%;
+    --accent: 24 100% 50%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 24 100% 50%;
+    --radius: 0.75rem;
+
+    /* Legacy variables for compatibility */
+    --bg: hsl(220 13% 9%);
+    --panel: hsl(220 13% 11%);
+    --text: hsl(220 9% 95%);
+    --text-dim: hsl(220 9% 63%);
+  }
+}
+
+@layer base {
+  /* Removed problematic @apply border-border directive */
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    color: hsl(var(--foreground));
+    overflow: hidden;
+    user-select: none;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Enhanced cursor styles */
+  * {
+    cursor: default;
+  }
+  button,
+  .btn {
+    cursor: pointer;
+  }
+  input,
+  select,
+  textarea {
+    cursor: text;
+  }
+}
+
+@layer components {
+  /* Enhanced gaming background with atmospheric depth */
+  .gaming-gradient {
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--primary) / 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, hsl(var(--accent) / 0.1) 0%, transparent 50%),
+      linear-gradient(
+        135deg,
+        hsl(220 25% 8%) 0%,
+        hsl(220 20% 12%) 25%,
+        hsl(220 15% 10%) 50%,
+        hsl(220 20% 8%) 75%,
+        hsl(220 25% 6%) 100%
+      );
+    position: relative;
+  }
+
+  .gaming-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 80%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--accent) / 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Enhanced character card styling for larger cards */
+  .character-card {
+    @apply bg-card/90 border border-border/50 backdrop-blur-sm;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 16px 64px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    @apply border-primary/40;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.7), 0 24px 96px rgba(0, 0, 0, 0.5), 0 0 60px hsl(var(--primary) / 0.2),
+      inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  /* Enhanced glow effect for buttons */
+  .glow-effect {
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3), 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+  }
+
+  .glow-effect:hover {
+    box-shadow: 0 6px 16px hsl(var(--primary) / 0.4), 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px hsl(var(--primary) / 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /* Enhanced button styles */
+  .btn {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-200;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3), 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px hsl(var(--primary) / 0.4), 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+  }
+
+  /* Enhanced input styles */
+  .input {
+    @apply bg-card/70 border border-border rounded-xl px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/50;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Added plus icon animation for empty slots */
+  .plus-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .empty-slot:hover .plus-icon {
+    transform: rotate(90deg) scale(1.2);
+    color: hsl(var(--primary));
+  }
+}
+
+@layer utilities {
+  /* Text balance and pretty utilities for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+/* Performance helpers */
+.gpu, .transform-gpu {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ADD — world visible only when TSX adds this class */
+html.v0-transparent,
+body.v0-transparent,
+#root.v0-transparent,
+#app.v0-transparent {
+  background: transparent !important;
+}
